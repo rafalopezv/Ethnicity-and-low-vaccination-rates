@@ -1,5 +1,5 @@
 ---
-title: "<center>¿Es alta o baja la vacunación en los municipios con población indígena, voto a favor del MAS-IPSP y en situación de pobreza?: SI</center>"
+title: "<center>¿Puede afectarse la vacunación en municipios con población indígena, voto a favor del MAS-IPSP y en situación de pobreza?: Si</center>"
 author: "<br><center>Rafa López V</center>"
 output: 
   html_document: 
@@ -249,7 +249,7 @@ resultado_es1_d2_lpz
 
 ![](graficos/tiempo_estudio1.jpg)
 
-- Todo el código puede verse y usarse en [este enlace](https://twitter.com/BoliGrafica/status/1472242529848500226), el mismo contiene:
+- Todo el código puede verse y usarse en [este enlace](https://github.com/rafalopezv/vacunas_mas_etnicidad), el mismo contiene:
 
   + Código de programación de página web, test estadísticos, arreglo de infomración, gráficos y tablas
   + Gráficos
