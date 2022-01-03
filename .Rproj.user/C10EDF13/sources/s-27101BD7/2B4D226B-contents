@@ -128,7 +128,7 @@ scatter_pobre_d1
 scatter_pobre_d2
 ```
 
-# Inspecciónn sobre la relación: vacunación, etnicidad, votación y pobreza
+# Inspección sobre la relación: vacunación, etnicidad, votación y pobreza
 
 Hasta acá se han visto estas relaciones de forma binomial, es decir, una contra otra. Pero para analizar su impacto cuando las otras están presentes hice un par de regresiones múltiples lineales que colaboran con la respuesta a la pregunta.
 
@@ -238,7 +238,7 @@ resultado_es1_d2_lpz
 
 - La información tiene carácter público
 
-- Sin embargo, los datos sobre vacunación se recogieron de [Boligráfica](https://twitter.com/BoliGrafica/status/1472242529848500226) y se asumen como validos
+- Sin embargo, los datos sobre vacunación se recogieron de [Boligráfica](https://twitter.com/BoliGrafica/status/1472242529848500226) y se asumen como válidos
 
 - Los datos sobre vacunación municipal concluyen el 12 de diembre del 2021. Sin embargo, asumiéndolos como verdaderos, no afectan a la naturaleza del estudio como puede verse en los siguientes gráficos
 
