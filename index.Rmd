@@ -178,6 +178,7 @@ resultado_es1_d1
 
 Todo lo anterior puede decirse con un 90% de probabilidad de estar en lo correcto y 10% de estar equivocados
 
+<br>
 
 #### De forma estadística
 
@@ -201,6 +202,7 @@ resultado_es1_d2
 
 Todo lo anterior puede decirse con un 90% de probabilidad de estar en lo correcto y 10% de estar equivocados
 
+<br>
 
 #### De forma estadística
 
@@ -224,14 +226,9 @@ resultado_es1_d1_lpz
 
 Todo lo anterior puede decirse con un 90% de probabilidad de estar en lo correcto y 10% de estar equivocados
 
+<br>
 
 #### De forma estadística
-
-```{r, echo = F }
-resultado_es1_d2_lpz
-```
-
-
 
 ```{r, echo = F }
 resultado_es1_d2_lpz
