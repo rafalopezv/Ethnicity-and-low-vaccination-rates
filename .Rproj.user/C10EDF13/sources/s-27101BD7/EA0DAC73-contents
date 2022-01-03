@@ -1,0 +1,85 @@
+
+regresion_mas <- function(.data) {
+  lm(formula = .data$porcentaje_primera_dosis ~ .data$mas + .data$ind) %>% 
+    summary() -> a 
+    a[[4]] %>% 
+      as.data.frame() %>% 
+      rownames_to_column() %>% 
+      filter(rowname == ".data$mas") %>% 
+      pull(Estimate) %>% 
+      as.numeric()
+}
+
+temp1$regresion[[1]] %>% 
+  summary() -> aa 
+  aa[[4]] %>% 
+    as.data.frame() %>% 
+  rownames_to_column() %>% 
+  filter(rowname == ".data$mas") %>% 
+  pull(Estimate) %>% 
+  as.numeric()
+  
+
+df %>% 
+  filter(nacion_pueblo %in% c("Aymara", "Quechua", "Guarani")) %>% 
+  count(nacion_pueblo)
+
+a[[4]] %>% 
+  as.data.frame() %>% 
+  rownames_to_column() %>% 
+  filter(rowname == ".data$mas") %>% 
+  pull(Estimate)
+
+df %>% 
+  lm(formula = porcentaje_primera_dosis ~ ind + mas) %>% 
+  summary()
+
+
+df %>% 
+  filter(municipio %in% c("Huarina", "Achacachi", "Pelechuco",
+                          "Charazani", "Curva", "Tiahanacu", "Copacabana",
+                          "Tiahuanacu", "San Pedro De Tiquina", "Santiago de Huata",
+                          "Huatajata")) %>% 
+  lm(formula = porcentaje_primera_dosis ~ ind + mas) %>% 
+  summary()
+
+df %>% 
+  #filter(departamento == "La Paz") %>% 
+  lm(formula = porcentaje_primera_dosis ~ ind + mas) %>% 
+  summary()
+
+pobreza <- read_csv("/Users/rafalopezv/Dropbox/alfa1/datos_extras/datos_municipales/output/pobreza_estrato_2001_2012.csv")
+
+pobreza %>% 
+  filter(año == 2012) %>% 
+  select(cod_ine = CODIGO, pobre_porcentaje) %>% 
+  left_join(df, .) -> temp2
+
+
+temp2 %>% 
+  filter(departamento %in% c("Santa Cruz", "Beni", "Pando", "Tarija")) %>% 
+  lm(formula = porcentaje_segunda_dosis ~ ind + mas + pobre_porcentaje) %>% 
+  summary()
+
+temp2 %>% 
+  filter(departamento %in% c("La Paz", "Oruro", "Cochabamba", "Potosí", "Chuquisaca")) %>% 
+  lm(formula = porcentaje_segunda_dosis ~ ind + mas + pobre_porcentaje) %>% 
+  summary()
+
+temp2 %>% 
+  filter(departamento == "Cochabamba") %>% 
+  #filter(nacion_pueblo == "Quechua") %>% 
+  ggplot(aes(mas)) +
+  geom_density()
+
+cor.test(temp2$mas, temp2$pobre_porcentaje)
+cor.test(temp2$ind, temp2$pobre_porcentaje)
+
+# pòr pais, departamento de La Paz, media luna, primera y segunda dosis
+
+
+
+# Lo municipios que menos se vacunan:
+# donde el mas tiene mayor presencia y existe mas etnicidad 
+scale_fill_manual(values = c("#60A160", "#457345", "#946194", "#402440")) 
+

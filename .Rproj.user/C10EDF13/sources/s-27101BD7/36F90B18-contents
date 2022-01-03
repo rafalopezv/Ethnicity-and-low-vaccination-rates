@@ -1,0 +1,122 @@
+---
+title: "<center>¿Dónde es baja la vacunación en Bolivia: En municipios con población indígena, voto masista y en situación de pobreza</center>"
+author: "<br><center>Rafa López V</center>"
+output: 
+  html_document: 
+    css: styles.css
+lang: es-CO
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("codigo/graficos.R")
+source("codigo/estadistica.R")
+```
+
+<br>
+
+# Estado de situación
+
+Bolivia tiene más de 340 municipios, algunos de ellos transitaron a la autonomía indígena. En este estudio se los llamará municipios, más allá de de su estatus legal actual; esto para estandarizar la geografía del análisis. 
+
+Un reporte liberado sobre avance de vacunación a nivel municipal muestra los siguientes escenarios paara la primera y segunda dosis al 4 de diciembre de 2021 [^1]
+
+## Avances en la vacunación por municipio {.tabset}
+
+<br>
+
+### Primera dosis
+
+```{r, echo = F}
+mun_1d
+```
+
+### Segunda dosis
+
+```{r, echo = F }
+mun_2d
+```
+
+## ¿Porqué hay municipios con menos del 6% de vacunación y otros con más del 90%?
+
+<br>
+La hipótesis: **Por el nivel de etnicidad, el apoyo al MAS-IPSP y la pobreza**.
+
+Para comprobarlo se ejecutaron varias regresiones líneales para verificar si **los porcentajes de primeras y segundas dosis depeenden:**
+
+- El porcentaje de etnicidad en cada municipio
+- El porcentaje de apoyo al MAS-IPSP en la elección 2020
+- El porcentaje de pobreza en cada municipio
+
+Ahora bien, aclaro los alcances de la utilización de estas variables:
+
+<br>
+
+|  Variable utilizada                                              | Rol de la variable                                                  | Alcances                                                                                                              |
+|------------------------------------------------------------------|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| Porcentaje de vacunación por municipio (primera y segunda dosis) | Efecto que se busca exlicar: ¿De qué depende esto?                  | Datos extraídos de: [Boligráfica](https://twitter.com/BoliGrafica/status/1472242459631575048)                                                                                            |
+| Porcentaje de etnicidad en cada municipio                        | Causa que se busca relacionar al efecto: ¿Influye en la vacunación? | Suma de los porcentajes de auto-identificación indígena en el municipio sin importar el pueblo o nación (censo 2012) |
+| Porcentaje de apoyo al MAS-IPSP en la elección 2020              | Causa que se busca relacionar al efecto: ¿Influye en la vacunación? | Porcentaje de voto a la candidatura presidencial y vicepresidencial                                                   |
+| Porcentaje de pobreza en cada municipio                          | Causa que se busca relacionar al efecto: ¿Influye en la vacunación? | Porcentaje de población en condiciones de pobreza (Censo 2012)                                                      |
+
+# Resultados
+
+Inicialmente se verificó cuan relacionadas están las causas planteadas (etnicidad, voto al MAS-IPSP y pobreza) con la vacunación en primera y segunda dosis [^2]
+
+## Relación entre vacunación y voto a favor del MAS-IPSP {.tabset}
+
+<br>
+
+### Primera dosis
+
+```{r, echo = F }
+mun_2d
+```
+
+### Segunda dosis
+
+```{r, echo = F }
+mun_2d
+```
+
+
+
+dsadsada
+asddada
+dasda
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+[^1]: Más adelante se mostrará porque este rezago de información no invalida el análisis
+[^2]: Se realizaron correlaciones 'Pearson', los resultados se los multiplicó por 100 para entender el parentezco entre ambas variables de forma más natural.
