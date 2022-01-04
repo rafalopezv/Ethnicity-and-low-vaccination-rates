@@ -83,3 +83,10 @@ cor.test(temp2$ind, temp2$pobre_porcentaje)
 # donde el mas tiene mayor presencia y existe mas etnicidad 
 scale_fill_manual(values = c("#60A160", "#457345", "#946194", "#402440")) 
 
+paste(c("a", "b", "c"), collapse = " | ")
+
+df %>% 
+  filter(porcentaje_primera_dosis < 100) -> a
+
+cor.test(a$porcentaje_primera_dosis, a$mas)
+

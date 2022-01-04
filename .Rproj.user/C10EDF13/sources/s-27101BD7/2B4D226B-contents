@@ -1,6 +1,6 @@
 ---
-title: "<center>¿Puede afectarse la vacunación en municipios con población indígena, voto a favor del MAS-IPSP y en situación de pobreza?: Si</center>"
-author: "<br><center>Rafa López V</center>"
+title: "<center>¿De qué depende que un municipio tenga alta o baja vacunación?</center>"
+author: "<br><center>Rafa López V.</center>"
 output: 
   html_document: 
     css: styles.css
@@ -18,9 +18,13 @@ source("codigo/estadistica.R")
 
 # Estado de situación
 
-Bolivia tiene más de 340 municipios, algunos de ellos transitaron a la autonomía indígena. En este estudio se los llamará municipios, más allá de de su estatus legal actual; esto para estandarizar la geografía del análisis. 
+Los porcentajes de vacunación pueden explicarse por diversos motivos. Yo elegí tres para explorarlos desde la geografía municipal boliviana:
 
-Un reporte liberado sobre avance de vacunación a nivel municipal muestra los siguientes escenarios paara la primera y segunda dosis al 4 de diciembre de 2021 [^1]
+- Votación a favor del MAS-IPSP en las elecciones del 2020
+- Autoidentificación étnica
+- Pobreza
+
+Un reporte sobre el avance de vacunación a nivel municipal muestra los siguientes escenarios para la primera y segunda dosis al 4 de diciembre de 2021 [^1]
 
 ## Avances en la vacunación por municipio {.tabset}
 
@@ -38,7 +42,7 @@ mun_1d
 mun_2d
 ```
 
-## Vea a continuación la misma información en mapa {.tabset}
+## Vea a continuación la misma información en mapas {.tabset}
 
 <br>
 
@@ -54,31 +58,25 @@ mapa_1d
 mapa_2d
 ```
 
-## ¿Porqué hay municipios con menos del 6% de vacunación y otros con más del 90%?
+## ¿Se podría decir que estas diferencias se deben a la afiliación política expresada en el voto al MAS-IPSP, la auto-identificación étnica y la pobreza?
 
-<br>
-La hipótesis: **Por el nivel de etnicidad, el apoyo al MAS-IPSP y la pobreza**.
+Para explorar la pregunta se relacionaron todas estas variables, una a una, para identificar si existe existe una co-relación y si se evidencia un patrón común que explique las variaciones. [^2]. Concretamente, se exploró si **los porcentajes de primeras y segundas dosis a nivel municipal dependen de:**
 
-Para comprobarlo se ejecutaron varias regresiones líneales para verificar si **los porcentajes de primeras y segundas dosis depeenden:**
-
-- El porcentaje de etnicidad en cada municipio
-- El porcentaje de apoyo al MAS-IPSP en la elección 2020
-- El porcentaje de pobreza en cada municipio
-
-Ahora bien, aclaro los alcances de la utilización de estas variables:
-
-<br>
-
-|  Variable utilizada                                              | Rol de la variable                                                  | Alcances                                                                                                              |
-|------------------------------------------------------------------|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| Porcentaje de vacunación por municipio (primera y segunda dosis) | Efecto que se busca exlicar: ¿De qué depende esto?                  | Datos extraídos de: [Boligráfica](https://twitter.com/BoliGrafica/status/1472242459631575048)                                                                                            |
-| Porcentaje de etnicidad en cada municipio                        | Causa que se busca relacionar al efecto: ¿Influye en la vacunación? | Suma de los porcentajes de auto-identificación indígena en el municipio sin importar el pueblo o nación (censo 2012) |
-| Porcentaje de apoyo al MAS-IPSP en la elección 2020              | Causa que se busca relacionar al efecto: ¿Influye en la vacunación? | Porcentaje de voto a la candidatura presidencial y vicepresidencial                                                   |
-| Porcentaje de pobreza en cada municipio                          | Causa que se busca relacionar al efecto: ¿Influye en la vacunación? | Porcentaje de población en condiciones de pobreza (Censo 2012)                                                      |
+- El porcentaje de auto-identifación étnica
+- El porcentaje de votos al MAS-IPSP en la elección 2020
+- El porcentaje de pobreza
 
 # Resultados
 
-Inicialmente se verificó cuan relacionadas están las causas planteadas (etnicidad, voto al MAS-IPSP y pobreza) con la vacunación en primera y segunda dosis [^2]
+El objetivo, nuevamente, consiste en analizar la infliuencia de estas tres variables en la vacunación. Sin embargo, inicialmente se verificó cuan relacionadas están las causas planteadas (etnicidad, voto al MAS-IPSP y pobreza) con la vacunación en primera y segunda dosis [^3].
+
+Para ello, se graficó cada una de ellas y los porcentajes de vacunación y se identificó un nivel de correlación que oscila entre 0 y 100, siendo:
+
+- 0 igual a una nula correlación; las variables no están relacionadas en absoluto. 
+
+- 100 igual a una perfecta correlación, las variables  están relacionadas en absoluto. 
+
+Para todos los métodos estadísticos se eliminaron los municipios con porcentajes de vacunación mayores al 100%, pues supone una duda metodológica razonable.
 
 ## Relación entre vacunación y voto a favor del MAS-IPSP {.tabset}
 
@@ -128,33 +126,35 @@ scatter_pobre_d1
 scatter_pobre_d2
 ```
 
-# Inspección sobre la relación: vacunación, etnicidad, votación y pobreza
+# ¿Cómo afectan la vacunación todas las variables juntas?
 
-Hasta acá se han visto estas relaciones de forma binomial, es decir, una contra otra. Pero para analizar su impacto cuando las otras están presentes hice un par de regresiones múltiples lineales que colaboran con la respuesta a la pregunta.
+Hasta acá se han visto estas relaciones de una variable contra la otra, pero no así su comportamiento conjunto. Uno de los métodos que permite hallar estas respuestas, entre otros, es la herramaienta estadística de la regresión múltiple lineal. En ella cada una de las causas posibles, en relación a laas otras, se analiza de acuerdo a:
+
+- Si es válido considerarla como causa
+- Si fuera válido entenderla como causa, ¿cuál es su influencia sobre la vacunación?
+- Si fuera válido entenderla como causa, ¿con que seguridad podemos afirmar que es tal?
 
 Hice estas regresiones:
 
 - **A nivel Bolivia**
-  + Vacunación en primera y segunda dosis como efecto y votación a favor del MAS-IPSP, nivel de etnicidad y pobreza como causas
+  + Vacunación en primera y segunda dosis como efecto de la votación a favor del MAS-IPSP, presencia de auto-identificación étnica y pobreza.
 
 - **A nivel departamento de La Paz**
-  + Vacunación en primera y segunda dosis como efecto y votación a favor del MAS-IPSP, nivel de etnicidad y pobreza como causas
+  + Vacunación en primera y segunda dosis como efecto de la votación a favor del MAS-IPSP, presencia de auto-identificación étnica y pobreza.
 
 <br>
 
-### Resultados a nivel Bolivia, primera dosis
+### Resultados a nivel Bolivia: primera dosis
 
 #### De forma literal
 
-- Si hubieraa (que no hay) un municipio que votó 0% al MAS-IPSP y que tuviera 0% de población indígena y %0 de pobreza la tasa de vacunación alzanzaría a 101%
+- Por cada 1o puntos porcentuales de autoidentificación étnica, a cualquier pueblo o nación indígena, la vacunación se reduce en 1.2%. Es decir, un municipio com 10% de población auto declarada indígena podría recibir 1.2% menos de la vacunación proyectada.
 
-- Por cada punto porcentual de existencia de etnicidad, el 101% se reduce en 0.11%. Es decir, un municipio com 10% de población indígena recibiría 1,11% menos de la vacunación ideal, que es 101%
+- Por cada 10 puntos porcentuales de votación al MAS-IPSP, la vacunación podría reducirse en 1.5%
 
-- Por cada punto porcentual de votación al MAS-IPSP, el 101% se reduce en 0.13%
+- Por cada 10 puntos porcentuales de población pobre, el 101% se reduce en 4.8%
 
-- Por cada punto porcentual de población pobre, el 101% se reduce en 0.48%
-
-Todo lo anterior puede decirse con un 90% de probabilidad de estar en lo correcto y 10% de estar equivocados
+Todo lo anterior puede decirse con, al menos, un 90% de probabilidad de estar en lo correcto y 10% de estar equivocados
 
 #### De forma estadística
 
@@ -168,15 +168,13 @@ resultado_es1_d1
 
 #### De forma literal
 
-- Si hubieraa (que no hay) un municipio que votó 0% al MAS-IPSP y que tuviera 0% de población indígena y %0 de pobreza la tasa de vacunación alzanzaría a 90%
+- No se puede afirmar sin el riesgo de estar equivocados que la aautoidentificación étnica influye en la vacunación de la segunda dosis
 
-- No se puede afirmar sin el riesgo de estar equivocados que etnicidad influye en la vacunación de segunda dosis
+- Por cada 10 puntos porcentuales de apoyo al MAS-IPSP, la vacunación podría reducirse en 1.2%. 
 
-- Por cada punto porcentual de votación al MAS-IPSP, el 101% se reduce en 0.11%
+- Por cada 10 puntos porcentuales de población pobre, la vacunación podría reducirse en 4.5%. 
 
-- Por cada punto porcentual de población pobre, el 101% se reduce en 0.48%
-
-Todo lo anterior puede decirse con un 90% de probabilidad de estar en lo correcto y 10% de estar equivocados
+Todo lo anterior puede decirse con, al menos, un 90% de probabilidad de estar en lo correcto y 10% de estar equivocados
 
 <br>
 
@@ -192,15 +190,13 @@ resultado_es1_d2
 
 #### De forma literal
 
-- Si hubieraa (que no hay) un municipio que votó 0% al MAS-IPSP y que tuviera 0% de población indígena y %0 de pobreza la tasa de vacunación alcanzaría a 84%
-
-- Por cada punto porcentual de existencia de etnicidad, el 101% se reduce en 0.39%. Es decir, un municipio com 10% de población indígena recibiría 3,9% menos de la vacunación ideal, que es 84%
+- Por cada 10 puntos porcentuales de autoidentificaación étnica, el porcentaje de vacunación podría reducirse en 2%.
 
 - No se puede afirmar sin el riesgo de estar equivocados que el voto a favor del MAS-IPSP influye en la vacunación de segunda dosis
 
-- Por cada punto porcentual de población pobre, el 84% se reduce en 0.4%
+- Por cada 10 puntos porcentuales de población pobre, el porcentaje de vacunación podría reducirse en 3%.
 
-Todo lo anterior puede decirse con un 90% de probabilidad de estar en lo correcto y 10% de estar equivocados
+Todo lo anterior puede decirse con, al menos, un 90% de probabilidad de estar en lo correcto y 10% de estar equivocados
 
 <br>
 
@@ -216,15 +212,13 @@ resultado_es1_d1_lpz
 
 #### De forma literal
 
-- Si hubiera (que no hay) un municipio que votó 0% al MAS-IPSP y que tuviera 0% de población indígena y %0 de pobreza la tasa de vacunación alcanzaría a 74%
-
-- Por cada punto porcentual de existencia de etnicidad, el 101% se reduce en 0.32%. Es decir, un municipio com 10% de población indígena recibiría 3,2% menos de la vacunación ideal, que es 84%
+- Por cada 10 puntos porcentuales de autoidentificación étnica, el porcentaje de vacunación podría reducirse en 3.2%
 
 - No se puede afirmar sin el riesgo de estar equivocados que el voto a favor del MAS-IPSP influye en la vacunación de segunda dosis
 
-- Por cada punto porcentual de población pobre, el 74% se reduce en 0.36%
+- Por cada 10 puntos porcentuales de pobreza, el porcentaje de vacunación podría reducirse en 3.6%    
 
-Todo lo anterior puede decirse con un 90% de probabilidad de estar en lo correcto y 10% de estar equivocados
+Todo lo anterior puede decirse con, al menos, un 90% de probabilidad de estar en lo correcto y 10% de estar equivocados
 
 <br>
 
@@ -234,13 +228,34 @@ Todo lo anterior puede decirse con un 90% de probabilidad de estar en lo correct
 resultado_es1_d2_lpz
 ```
 
+# Conclusiones
+
+- En Bolivia en su conjunto, los municipios pueden reducir sus tasas de vacunación si a medida que la votación del MAS-IPSP sea mas alta.
+
+- Los municipios con población étnica, son susceptibles a reducir sus tasas de vacunación tanto a nivel Bolivia como específicamente en el departamento de La Paz.
+
+- La pobreza es la explicación que más impacta en la reducción de la vacunación tanto a nivel Bolivia como específicamente en el departamento de La Paz.
+
+- El MAS-IPSP, entendido desde el apoyo electoral que recibe, no explica la reducción de la vacunación en el departamento de La Paz.
+
+# Alcance de las variables
+
+<br>
+
+|  Variable utilizada                                              | Rol de la variable                                                  | Alcances                                                                                                              |
+|------------------------------------------------------------------|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| Porcentaje de vacunación por municipio (primera y segunda dosis) | Efecto que se busca exlicar: ¿De qué depende esto?                  | Datos extraídos de: [Boligráfica](https://twitter.com/BoliGrafica/status/1472242459631575048)                                                                                            |
+| Porcentaje de etnicidad en cada municipio                        | Causa que se busca relacionar al efecto: ¿Influye en la vacunación? | Suma de los porcentajes de auto-identificación indígena en el municipio sin importar el pueblo o nación (censo 2012) |
+| Porcentaje de apoyo al MAS-IPSP en la elección 2020              | Causa que se busca relacionar al efecto: ¿Influye en la vacunación? | Porcentaje de voto a la candidatura presidencial y vicepresidencial                                                   |
+| Porcentaje de pobreza en cada municipio                          | Causa que se busca relacionar al efecto: ¿Influye en la vacunación? | Porcentaje de población en condiciones de pobreza (Censo 2012)                                                      |
+
 # Sobre el estudio
 
 - La información tiene carácter público
 
-- Sin embargo, los datos sobre vacunación se recogieron de [Boligráfica](https://twitter.com/BoliGrafica/status/1472242529848500226) y se asumen como válidos
+- Sin embargo, los datos sobre vacunación se recogieron de [Boligráfica](https://twitter.com/BoliGrafica/status/1472242529848500226) y se asumen como válidos.
 
-- Los datos sobre vacunación municipal concluyen el 12 de diembre del 2021. Sin embargo, asumiéndolos como verdaderos, no afectan a la naturaleza del estudio como puede verse en los siguientes gráficos
+- Los datos sobre vacunación municipal concluyen el 12 de diciembre del 2021. Sin embargo, asumiéndolos como verdaderos, no afectan a la naturaleza del estudio como puede verse en los siguientes gráficos
 
 
 ![](graficos/tiempo_estudio.jpg)
@@ -251,9 +266,10 @@ resultado_es1_d2_lpz
 
 - Todo el código puede verse y usarse en [este enlace](https://github.com/rafalopezv/vacunas_mas_etnicidad), el mismo contiene:
 
-  + Código de programación de página web, test estadísticos, arreglo de infomración, gráficos y tablas
+  + Código de programación de página web, test estadísticos, arreglo de información, gráficos y tablas
   + Gráficos
 
 
 [^1]: Más adelante se mostrará porque este rezago de información no invalida el análisis
-[^2]: Se realizaron correlaciones 'Pearson', los resultados se los multiplicó por 100 para entender el parentezco entre ambas variables de forma más natural.
+[^2]: Se utilizaron regresiones múltiples lineales 
+[^3]: Se realizaron correlaciones 'Pearson', los resultados se los multiplicó por 100 para entender el parentezco entre ambas variables de forma más natural.

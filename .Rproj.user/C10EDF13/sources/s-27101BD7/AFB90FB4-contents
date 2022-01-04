@@ -35,6 +35,7 @@ cor.test(df$porcentaje_segunda_dosis, df$pobre_porcentaje)
 
 # regresión principal: vacunacion, etnicidad + mas (primera dosis)  
 df %>% 
+  filter(porcentaje_primera_dosis < 101) %>% 
   lm(formula = porcentaje_primera_dosis ~ ind + mas + pobre_porcentaje) %>% 
   tidy() %>% 
   rename(
@@ -51,9 +52,10 @@ df %>%
       `Término` == "mas"~ "Voto al MAS-IPSP (%)",
       `Término` == "pobre_porcentaje"~ "Pobreza (%)"
     ),
-    "Significancia estadística mayor al 90%" = case_when(
-      `Valor 'p'` < 10/100 ~ "Si",
-      T ~ "No" 
+    "Significancia estadística" = case_when(
+      `Valor 'p'` < 5/100 ~ "Mayor al 95%",
+      `Valor 'p'` < 10/100 ~ "Mayor al 90%",
+      T ~ "La variable no es significativa" 
     )
   ) %>% 
   mutate_if(is.numeric, round, 3) %>% 
@@ -61,6 +63,7 @@ df %>%
 
 # regresión principal: vacunacion, etnicidad + mas (segunda dosis)  
 df %>% 
+  filter(porcentaje_segunda_dosis < 100) %>% 
   lm(formula = porcentaje_segunda_dosis ~ ind + mas + pobre_porcentaje) %>% 
   tidy() %>% 
   rename(
@@ -77,9 +80,10 @@ df %>%
       `Término` == "mas"~ "Voto al MAS-IPSP (%)",
       `Término` == "pobre_porcentaje"~ "Pobreza (%)"
     ),
-    "Significancia estadística mayor al 90%" = case_when(
-      `Valor 'p'` < 10/100 ~ "Si",
-      T ~ "No" 
+    "Significancia estadística" = case_when(
+      `Valor 'p'` < 5/100 ~ "Mayor al 95%",
+      `Valor 'p'` < 10/100 ~ "Mayor al 90%",
+      T ~ "La variable no es significativa" 
     ),
   ) %>% 
   mutate_if(is.numeric, round, 3) %>% 
@@ -87,6 +91,7 @@ df %>%
 
 # regresión secundaria: La Paz primera dosis  
 df %>% 
+  filter(porcentaje_primera_dosis < 101) %>% 
   filter(departamento == "La Paz") %>% 
   lm(formula = porcentaje_primera_dosis ~ ind + mas + pobre_porcentaje) %>% 
   tidy() %>% 
@@ -104,9 +109,10 @@ df %>%
       `Término` == "mas"~ "Voto al MAS-IPSP (%)",
       `Término` == "pobre_porcentaje"~ "Pobreza (%)"
     ),
-    "Significancia estadística mayor al 90%" = case_when(
-      `Valor 'p'` < 10/100 ~ "Si",
-      T ~ "No" 
+    "Significancia estadística" = case_when(
+      `Valor 'p'` < 5/100 ~ "Mayor al 95%",
+      `Valor 'p'` < 10/100 ~ "Mayor al 90%",
+      T ~ "La variable no es significativa" 
     ),
   ) %>% 
   mutate_if(is.numeric, round, 3) %>% 
@@ -114,6 +120,7 @@ df %>%
 
 # regresión secundaria: La Paz segunda dosis  
 df %>% 
+  filter(porcentaje_segunda_dosis < 101) %>% 
   filter(departamento == "La Paz") %>% 
   lm(formula = porcentaje_segunda_dosis ~ ind + mas + pobre_porcentaje) %>% 
   tidy() %>% 
@@ -131,9 +138,10 @@ df %>%
       `Término` == "mas"~ "Voto al MAS-IPSP (%)",
       `Término` == "pobre_porcentaje"~ "Pobreza (%)"
     ),
-    "Significancia estadística mayor al 90%" = case_when(
-      `Valor 'p'` < 10/100 ~ "Si",
-      T ~ "No" 
+    "Significancia estadística" = case_when(
+      `Valor 'p'` < 5/100 ~ "Mayor al 95%",
+      `Valor 'p'` < 10/100 ~ "Mayor al 90%",
+      T ~ "La variable no es significativa" 
     ),
   ) %>% 
   mutate_if(is.numeric, round, 3) %>% 

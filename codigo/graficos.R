@@ -465,6 +465,7 @@ ggsave("graficos/mapa_2d.jpg", width = 6, height = 6)
 #------------------
 # mas vs  vacunación: primera dosis gglot
 df %>% 
+  filter(porcentaje_primera_dosis < 100) %>% 
   mutate(
     mas = mas/100,
     porcentaje_primera_dosis = porcentaje_primera_dosis/100
@@ -541,7 +542,7 @@ df %>%
   labs(
     title = "Relación entre el nivel de vacunación y el nivel de etnicidad",
     subtitle = "¿En cuánto se parece la votación al MAS-IPSP y el nivel de etnicidad?: en 53%\nCada círculo azul es un municipio\nLa lína roja muestra la tendencia, el margen plomo sus límites",
-    x = "Porcentaje [%] de autoidentificación étnica (Censo 2012)",
+    x = "Porcentaje [%] de auto-identificación étnica (Censo 2012)",
     y = "Porcentaje [%] de personas con al menos una dosis (Bolivia)",
     caption = "Realizado el 2 de enero de 2022\nrafalopezv\nLa línea de tendencia es producto de una regresión lineal"
   )
@@ -569,7 +570,7 @@ df %>%
   labs(
     title = "Relación entre el nivel de vacunación y el nivel de etnicidad",
     subtitle = "¿En cuánto se parece la votación al MAS-IPSP y el nivel de etnicidad?: en 47%\nCada círculo azul es un municipio\nLa lína roja muestra la tendencia, el margen plomo sus límites",
-    x = "Porcentaje [%] de autoidentificación étnica (Censo 2012)",
+    x = "Porcentaje [%] de auto-identificación étnica (Censo 2012)",
     y = "Porcentaje [%] de personas con dos dosis (Bolivia)",
     caption = "Realizado el 2 de enero de 2022\nrafalopezv\nLa línea de tendencia es producto de una regresión lineal"
   )
@@ -629,6 +630,7 @@ ggsave("graficos/scatter_pobre_2d.jpg", width = 8, height = 8)
 
 # mas vs  vacunación: primera dosis highcharter
 df %>%
+  filter(porcentaje_primera_dosis < 100) %>% 
   mutate(mas = round(mas, 0)) %>%
   hchart(
     "scatter",
@@ -661,11 +663,11 @@ df %>%
     headerFormat = ""
   ) %>%
   hc_title(text = "Relación entre el nivel de vacunación y la votación al MAS-IPSP") %>%
-  hc_subtitle(text = "¿En cuánto se parece la votación al MAS-IPSP y el nivel de vacunación?: en 50%<br>Cada círculo azul es un municipio, la lína roja muestra la tendencia<br><b>Pase su mpuse sobre un municipio para mayor información</b>") %>%
+  hc_subtitle(text = "Correlación: 53%") %>%
   hc_yAxis(
     title = list(text = "Porcentaje [%] de personas con al menos una dosis (Bolivia)"),
     labels = list(format = "{value}%"),
-    max = 125
+    max = 100
   ) %>%
   hc_xAxis(
     title = list(text = "Porcentaje [%] de votación a favor del MAS-IPS, elecciones 2020"),
@@ -686,6 +688,7 @@ df %>%
 
 # mas vs  vacunación: segunda dosis highcharter
 df %>%
+  filter(porcentaje_segunda_dosis < 101) %>% 
   mutate(mas = round(mas, 0)) %>%
   hchart(
     "scatter",
@@ -718,11 +721,11 @@ df %>%
     headerFormat = ""
   ) %>%
   hc_title(text = "Relación entre el nivel de vacunación y la votación al MAS-IPSP") %>%
-  hc_subtitle(text = "¿En cuánto se parece la votación al MAS-IPSP y el nivel de vacunación?: en 45%<br>Cada círculo azul es un municipio, la lína roja muestra la tendencia<br><b>Pase su mouse sobre un municipio para mayor información</b>") %>%
+  hc_subtitle(text = "Correlación: 47%") %>%
   hc_yAxis(
     title = list(text = "Porcentaje [%] de personas con dos dosis (Bolivia)"),
     labels = list(format = "{value}%"),
-    max = 125
+    max = 100
   ) %>%
   hc_xAxis(
     title = list(text = "Porcentaje [%] de votación a favor del MAS-IPS, elecciones 2020"),
@@ -743,6 +746,7 @@ df %>%
 
 # etnicidaad vs  vacunación: primera dosis highcharter
 df %>%
+  filter(porcentaje_primera_dosis < 101) %>% 
   mutate(mas = round(mas, 0)) %>%
   hchart(
     "scatter",
@@ -770,20 +774,20 @@ df %>%
       "Municipio: <b>{point.municipio}</b><br>
                         Departamento: <b>{point.departamento}</b><br>
                         Porcentaje de población vacunada: <b>{point.porcentaje_primera_dosis}%</b>
-                        Votación de poblaación indígena: <b>{point.mas}%</b><br>
+                        Votación de población indígena: <b>{point.mas}%</b><br>
                         Pueblo o nación mayoritaria: <b>{point.nacion_pueblo}"
     ),
     headerFormat = ""
   ) %>%
   hc_title(text = "Relación entre el nivel de vacunación y el nivel de etnicidad") %>%
-  hc_subtitle(text = "¿En cuánto se parece la votación al MAS-IPSP y el nivel de etnicidad?: en 53%<br>Cada círculo azul es un municipio, la lína roja muestra la tendencia<br><b>Pase su mouse sobre un municipio para mayor información</b>") %>%
+  hc_subtitle(text = "Correlación: 55%") %>%
   hc_yAxis(
     title = list(text = "Porcentaje [%] de personas con al menos una dosis (Bolivia)"),
     labels = list(format = "{value}%"),
     max = 125
   ) %>%
   hc_xAxis(
-    title = list(text = "Porcentaje [%] de etnicidad (Censo 2012)"),
+    title = list(text = "Porcentaje [%] de auto-identificación étnica (Censo 2012)"),
     labels = list(format = "{value}%"),
     visivle = T
   ) %>%
@@ -801,6 +805,7 @@ df %>%
 
 # etnicidad vs  vacunación: segunda dosis highcharter
 df %>%
+  filter(porcentaje_segunda_dosis < 101) %>% 
   mutate(mas = round(mas, 0)) %>%
   hchart(
     "scatter",
@@ -834,14 +839,14 @@ df %>%
     headerFormat = ""
   ) %>%
   hc_title(text = "Relación entre el nivel de vacunación y el nivel de etnicidad") %>%
-  hc_subtitle(text = "¿En cuánto se parece la votación al MAS-IPSP y el nivel de etnicidad?: en 53%<br>Cada círculo azul es un municipio, la lína roja muestra la tendencia<br><b>Pase su mouse sobre un municipio para mayor información</b>") %>%
+  hc_subtitle(text = "Correlación: 49%") %>%
   hc_yAxis(
     title = list(text = "Porcentaje [%] de personas con dos dosis (Bolivia)"),
     labels = list(format = "{value}%"),
     max = 125
   ) %>%
   hc_xAxis(
-    title = list(text = "Porcentaje [%] de etnicidad (Censo 2012)"),
+    title = list(text = "Porcentaje [%] de auto-identificación étnica (Censo 2012)"),
     labels = list(format = "{value}%"),
     visivle = T
   ) %>%
@@ -859,6 +864,7 @@ df %>%
 
 # pobreza vs  vacunación: primera dosis highcharter
 df %>%
+  filter(porcentaje_primera_dosis < 101) %>% 
   mutate(pobre_porcentaje = round(pobre_porcentaje, 0)) %>% 
   hchart(
     "scatter",
@@ -891,7 +897,7 @@ df %>%
     headerFormat = ""
   ) %>%
   hc_title(text = "Relación entre el nivel de vacunación y el nivel de pobreza") %>%
-  hc_subtitle(text = "¿En cuánto se parece la votación al MAS-IPSP y el nivel de pobreza?: en 60%<br>Cada círculo azul es un municipio, la lína roja muestra la tendencia<br><b>Pase su mouse sobre un municipio para mayor información</b>") %>%
+  hc_subtitle(text = "Correlación: 60%") %>%
   hc_yAxis(
     title = list(text = "Porcentaje [%] de personas con al menos una dosis (Bolivia)"),
     labels = list(format = "{value}%"),
@@ -916,6 +922,7 @@ df %>%
 
 # pobreza vs  vacunación: segunda dosis highcharter
 df %>%
+  filter(porcentaje_segunda_dosis < 101) %>% 
   mutate(pobre_porcentaje = round(pobre_porcentaje, 0)) %>% 
   hchart(
     "scatter",
@@ -948,7 +955,7 @@ df %>%
     headerFormat = ""
   ) %>%
   hc_title(text = "Relación entre el nivel de vacunación y el nivel de pobreza") %>%
-  hc_subtitle(text = "¿En cuánto se parece la votación al MAS-IPSP y el nivel de pobreza?: en 58%<br>Cada círculo azul es un municipio, la lína roja muestra la tendencia<br><b>Pase su mouse sobre un municipio para mayor información</b>") %>%
+  hc_subtitle(text = "Correlación: 58%") %>%
   hc_yAxis(
     title = list(text = "Porcentaje [%] de personas con dos dosis (Bolivia)"),
     labels = list(format = "{value}%"),
