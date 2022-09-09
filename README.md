@@ -5,8 +5,7 @@
 
 # Live version
 
-
-
+https://rafalopezv.github.io/Ethnicity-and-low-vaccination-rates/
 
 # Language
 
