@@ -10,4 +10,8 @@ https://rafalopezv.github.io/Ethnicity-and-low-vaccination-rates/
 # Language
 
 Spanish
+
+# How to run
+
+- Swithc to gh-pages branh and run index.Rmd file
  
